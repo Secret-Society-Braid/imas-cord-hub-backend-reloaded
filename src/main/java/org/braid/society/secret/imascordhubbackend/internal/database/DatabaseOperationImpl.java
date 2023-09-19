@@ -33,6 +33,9 @@ public class DatabaseOperationImpl<T> implements DatabaseOperation<T> {
     if(client == null) {
       Properties props = new Properties();
       final boolean isLocal = "local".equals(System.getenv("RUNENV"));
+      if (isLocal) {
+        return Optional.empty();
+      }
       try {
         props.load(Paths.get("/etc/secret/database.properties").toUri().toURL().openStream());
       } catch (IOException e) {
