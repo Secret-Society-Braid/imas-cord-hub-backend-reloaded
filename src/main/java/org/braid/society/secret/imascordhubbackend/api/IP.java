@@ -5,7 +5,7 @@ import lombok.ToString;
 @ToString
 public enum IP {
   ALLSTARS("765as"),
-  CINDRELLA,
+  CINDERELLA,
   MILLION,
   SHINY,
   SIDEM,
@@ -20,6 +20,15 @@ public enum IP {
 
   IP() {
     this.ip = this.name().toLowerCase();
+  }
+
+  public static IP fromString(String s) {
+    for (IP ip : IP.values()) {
+      if (ip.getIP().equalsIgnoreCase(s)) {
+        return ip;
+      }
+    }
+    return null;
   }
 
   public String getIP() {

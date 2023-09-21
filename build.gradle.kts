@@ -27,6 +27,7 @@ dependencies {
     implementation("ch.qos.logback:logback-classic:1.4.7")
     implementation("com.google.guava:guava:32.0.1-jre")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
+    implementation("org.apache.commons:commons-csv:1.10.0")
 
     compileOnly("org.projectlombok:lombok:1.18.26")
 
