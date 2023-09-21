@@ -23,20 +23,22 @@ repositories {
 
 dependencies {
 
-    implementation("org.springframework.boot:spring-boot-starter-web")
-    implementation("ch.qos.logback:logback-classic")
-    implementation("org.mongodb:mongodb-driver-reactivestreams:4.10.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
+    implementation("ch.qos.logback:logback-classic:1.4.7")
     implementation("com.google.guava:guava:32.0.1-jre")
-    implementation("jakarta.annotation:jakarta.annotation-api:1.3.5")
+    implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
+    implementation("org.apache.commons:commons-csv:1.10.0")
 
-    compileOnly("org.projectlombok:lombok")
+    compileOnly("org.projectlombok:lombok:1.18.26")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor")
-    annotationProcessor("org.projectlombok:lombok")
-    annotationProcessor("jakarta.annotation:jakarta.annotation-api:1.3.5")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.0.4")
+    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test")
-    testImplementation("com.google.truth:truth:1.1.3")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.0")
+    testImplementation("com.google.truth:truth:1.1.3") {
+        isTransitive = false
+    }
 }
 
 dependencyManagement {
