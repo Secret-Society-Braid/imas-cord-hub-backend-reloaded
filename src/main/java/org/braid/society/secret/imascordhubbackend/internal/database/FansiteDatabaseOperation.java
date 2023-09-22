@@ -13,7 +13,7 @@ import org.braid.society.secret.imascordhubbackend.api.entity.FansiteEntity;
 @Slf4j
 public class FansiteDatabaseOperation extends AbstractCsvDatabaseOperation<FansiteEntity> {
 
-  private static final String[] HEADERS = {"is", "name", "description", "waifu", "link"};
+  private static final String[] HEADERS = {"id", "name", "description", "waifu", "link"};
 
   public FansiteDatabaseOperation(Reader reader) {
     super(reader, HEADERS);
