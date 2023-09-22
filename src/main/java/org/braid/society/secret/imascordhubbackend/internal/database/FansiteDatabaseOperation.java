@@ -33,18 +33,6 @@ public class FansiteDatabaseOperation extends AbstractCsvDatabaseOperation<Fansi
   }
 
   @Override
-  @Nonnull
-  public FansiteEntity get(String id) {
-    try (CSVParser p = super.createParser()) {
-      return p.stream().filter(r -> r.get("id").equals(id)).findFirst().map(this::parseRecord)
-        .orElseThrow();
-    } catch (IOException e) {
-      log.error("Failed to load fansite {} from local csv database due to IO error", id, e);
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Override
   protected FansiteEntity parseRecord(@Nonnull CSVRecord r) {
     return FansiteEntity.of(
       r.get("id"),

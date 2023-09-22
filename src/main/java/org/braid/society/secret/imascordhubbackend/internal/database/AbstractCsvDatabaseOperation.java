@@ -46,7 +46,16 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
 
   @Override
   @Nonnull
-  public abstract T get(String id);
+  public T get(String id) {
+    try (CSVParser p = this.createParser()) {
+      return p.stream().filter(r -> r.get("id").equals(id)).findFirst().map(this::parseRecord)
+        .orElseThrow();
+    } catch (IOException e) {
+      log.error("Failed to load {} with id {} from local csv database due to IO error.",
+        this.getClass().getSimpleName(), id, e);
+      throw new RuntimeException(e);
+    }
+  }
 
   @Override
   @Nonnull
