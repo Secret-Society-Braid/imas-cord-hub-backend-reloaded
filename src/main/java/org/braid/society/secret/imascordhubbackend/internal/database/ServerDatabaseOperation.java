@@ -34,18 +34,6 @@ public class ServerDatabaseOperation extends AbstractCsvDatabaseOperation<Server
   }
 
   @Override
-  @Nonnull
-  public ServerEntity get(String id) {
-    try (CSVParser p = super.createParser()) {
-      return p.stream().filter(r -> r.get("id").equals(id)).findFirst().map(this::parseRecord)
-        .orElseThrow();
-    } catch (IOException e) {
-      log.error("Failed to load server {} from local csv database due to IO error", id, e);
-      throw new RuntimeException(e);
-    }
-  }
-
-  @Override
   protected ServerEntity parseRecord(@Nonnull CSVRecord r) {
     return ServerEntity.of(
       r.get("id"),

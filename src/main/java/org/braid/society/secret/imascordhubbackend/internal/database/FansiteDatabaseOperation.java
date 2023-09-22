@@ -13,7 +13,7 @@ import org.braid.society.secret.imascordhubbackend.api.entity.FansiteEntity;
 @Slf4j
 public class FansiteDatabaseOperation extends AbstractCsvDatabaseOperation<FansiteEntity> {
 
-  private static final String[] HEADERS = {"is", "name", "description", "waifu", "link"};
+  private static final String[] HEADERS = {"id", "name", "description", "waifu", "link"};
 
   public FansiteDatabaseOperation(Reader reader) {
     super(reader, HEADERS);
@@ -30,18 +30,6 @@ public class FansiteDatabaseOperation extends AbstractCsvDatabaseOperation<Fansi
       log.error("Failed to load fansites from local csv database due to IO error", e);
     }
     return Collections.emptyList();
-  }
-
-  @Override
-  @Nonnull
-  public FansiteEntity get(String id) {
-    try (CSVParser p = super.createParser()) {
-      return p.stream().filter(r -> r.get("id").equals(id)).findFirst().map(this::parseRecord)
-        .orElseThrow();
-    } catch (IOException e) {
-      log.error("Failed to load fansite {} from local csv database due to IO error", id, e);
-      throw new RuntimeException(e);
-    }
   }
 
   @Override
