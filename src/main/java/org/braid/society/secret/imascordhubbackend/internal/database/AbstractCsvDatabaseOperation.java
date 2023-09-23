@@ -3,6 +3,7 @@ package org.braid.society.secret.imascordhubbackend.internal.database;
 import jakarta.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Collections;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -60,7 +61,21 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   @Override
   @Nonnull
   public <V> List<T> filter(@Nonnull String fieldName, @Nonnull V value) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (value instanceof String term) {
+      try (CSVParser p = this.createParser()) {
+        List<T> res = p.stream().filter(r -> r.get(fieldName).equals(term)).map(this::parseRecord)
+          .toList();
+        log.debug("Found {} {}s with {} = {} from local csv database.", res.size(),
+          this.getClass().getSimpleName(), fieldName, value);
+        return res;
+      } catch (IOException e) {
+        log.error("Failed to filter {} with {} = {} from local csv database due to IO error.",
+          this.getClass().getSimpleName(), fieldName, value, e);
+        return Collections.emptyList();
+      }
+    }
+    throw new IllegalArgumentException(
+      "As this database is based on CSV, only String value type is supported.");
   }
 
   @Override
