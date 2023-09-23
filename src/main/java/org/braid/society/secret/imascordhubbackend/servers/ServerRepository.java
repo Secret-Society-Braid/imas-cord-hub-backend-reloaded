@@ -1,8 +1,9 @@
-package org.braid.society.secret.imascordhubbackend.server;
+package org.braid.society.secret.imascordhubbackend.servers;
 
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;
+import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 import lombok.RequiredArgsConstructor;
@@ -32,5 +33,24 @@ public class ServerRepository {
 
   public ServerEntity getServerById(String id) {
     return this.op.get(id);
+  }
+
+  public List<ServerEntity> searchServers(String fieldName, String term) {
+    return this.op.filter(fieldName, term);
+  }
+
+  public List<ServerEntity> getRandomServers(int count) {
+    if (count <= 0) {
+      throw new IllegalArgumentException("count must be positive");
+    }
+    List<ServerEntity> servers = this.op.getAll();
+    if (count > servers.size()) {
+      int size = servers.size();
+      for (int i = 0; i < count - size; i++) {
+        servers.add(servers.get(i));
+      }
+    }
+    Collections.shuffle(servers);
+    return servers.subList(0, count);
   }
 }

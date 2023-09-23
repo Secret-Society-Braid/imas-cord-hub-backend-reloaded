@@ -1,4 +1,4 @@
-package org.braid.society.secret.imascordhubbackend.server;
+package org.braid.society.secret.imascordhubbackend.servers;
 
 import java.util.List;
 import lombok.RequiredArgsConstructor;
@@ -17,5 +17,13 @@ public class ServerService {
 
   public ServerEntity getServerById(String id) {
     return this.repo.getServerById(id);
+  }
+
+  public List<ServerEntity> searchServers(String fieldName, String term) {
+    return this.repo.searchServers(fieldName, term);
+  }
+
+  public List<ServerEntity> getRandomServers(int count) {
+    return this.repo.getRandomServers(count);
   }
 }
