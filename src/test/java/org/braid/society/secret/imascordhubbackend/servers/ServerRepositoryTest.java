@@ -3,6 +3,7 @@ package org.braid.society.secret.imascordhubbackend.servers;
 import static com.google.common.truth.Truth.assertThat;
 
 import java.util.List;
+import org.braid.society.secret.imascordhubbackend.api.IP;
 import org.braid.society.secret.imascordhubbackend.api.entity.ServerEntity;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -26,4 +27,17 @@ class ServerRepositoryTest {
   }
 
   //TODO: add rest of tests
+  @Test
+  void searchServersShouldReturnCollectly() {
+    // setup
+    final ServerRepository r = new ServerRepository();
+    final List<ServerEntity> list = r.searchServers("name", "デレマス");
+
+    // assertion
+    assertThat(list).hasSize(1); // should only one
+    final ServerEntity obj = list.get(0);
+
+    assertThat(obj.getName()).isEqualTo("デレマス13歳組の間");
+    assertThat(obj.getIp()).isEqualTo(IP.CINDERELLA);
+  }
 }
