@@ -28,7 +28,7 @@ class ServerRepositoryTest {
 
   //TODO: add rest of tests
   @Test
-  void searchServersShouldReturnCollectly() {
+  void searchServersShouldReturnCorrectly() {
     // setup
     final ServerRepository r = new ServerRepository();
     final List<ServerEntity> list = r.searchServers("name", "デレマス");
