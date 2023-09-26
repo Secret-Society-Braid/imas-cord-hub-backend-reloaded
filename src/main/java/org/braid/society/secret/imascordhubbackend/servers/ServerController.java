@@ -1,6 +1,7 @@
 package org.braid.society.secret.imascordhubbackend.servers;
 
 import java.util.List;
+import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.braid.society.secret.imascordhubbackend.api.entity.ServerEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,14 +28,15 @@ public class ServerController {
   }
 
   @GetMapping("/search/{term}")
-  public List<ServerEntity> searchServers(@RequestParam("type") String type,
+  public List<ServerEntity> searchServers(
+    @RequestParam(value = "type", required = false) Optional<String> type,
     @PathVariable(name = "term") String term) {
-    String fieldName = "waifu".equals(type) ? type : "name";
-    return this.service.searchServers(fieldName, term);
+    return this.service.searchServers(type.orElse("name"), term);
   }
 
   @GetMapping("/random")
-  public List<ServerEntity> getRandomServers(@RequestParam("count") int count) {
-    return this.service.getRandomServers(count);
+  public List<ServerEntity> getRandomServers(
+    @RequestParam(value = "count", required = false) Optional<Integer> count) {
+    return this.service.getRandomServers(count.orElse(2));
   }
 }
