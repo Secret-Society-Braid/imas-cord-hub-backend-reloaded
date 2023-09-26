@@ -3,6 +3,7 @@ package org.braid.society.secret.imascordhubbackend.internal.database;
 import jakarta.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
@@ -24,7 +25,8 @@ public class ServerDatabaseOperation extends AbstractCsvDatabaseOperation<Server
   @Nonnull
   public List<ServerEntity> getAll() {
     try (CSVParser p = super.createParser()) {
-      List<ServerEntity> res = p.stream().map(this::parseRecord).toList();
+      List<ServerEntity> res = p.stream().map(this::parseRecord)
+        .collect(ArrayList::new, ArrayList::add, ArrayList::addAll);
       log.debug("Loaded {} servers from local csv database", res.size());
       return res;
     } catch (IOException e) {
