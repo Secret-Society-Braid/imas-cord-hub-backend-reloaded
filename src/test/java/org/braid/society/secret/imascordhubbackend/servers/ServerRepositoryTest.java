@@ -40,4 +40,30 @@ class ServerRepositoryTest {
     assertThat(obj.getName()).isEqualTo("デレマス13歳組の間");
     assertThat(obj.getIp()).isEqualTo(IP.CINDERELLA);
   }
+
+  @Test
+  void findShouldOnlyReturnOneEntity() {
+    // setup
+    final ServerRepository r = new ServerRepository();
+    final ServerEntity obj = r.getServerById("9bffce54-d95e-4f51-b8d1-8b68aaea605a");
+
+    // assertion
+
+    assertThat(obj).isNotNull();
+    assertThat(obj.getName()).isEqualTo("デレマス13歳組の間");
+    assertThat(obj.getIp()).isEqualTo(IP.CINDERELLA);
+    assertThat(obj.getId()).isEqualTo("9bffce54-d95e-4f51-b8d1-8b68aaea605a");
+  }
+
+  @Test
+  void randomShouldReturnSpecifiedNumberOfEntity() {
+    // setup
+    final ServerRepository r = new ServerRepository();
+    final List<ServerEntity> lessList = r.getRandomServers(2);
+    final List<ServerEntity> moreList = r.getRandomServers(10);
+
+    // assertion
+    assertThat(lessList).hasSize(2);
+    assertThat(moreList).hasSize(10);
+  }
 }
