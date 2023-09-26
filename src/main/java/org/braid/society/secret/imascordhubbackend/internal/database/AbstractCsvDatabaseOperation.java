@@ -37,6 +37,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
       .setIgnoreEmptyLines(true)
       .setNullString("")
       .setQuote('\"')
+      .setRecordSeparator('\n')
       .build()
       .parse(this.reader);
   }
@@ -63,7 +64,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   public <V> List<T> filter(@Nonnull String fieldName, @Nonnull V value) {
     if (value instanceof String term) {
       try (CSVParser p = this.createParser()) {
-        List<T> res = p.stream().filter(r -> r.get(fieldName).equals(term)).map(this::parseRecord)
+        List<T> res = p.stream().filter(r -> r.get(fieldName).contains(term)).map(this::parseRecord)
           .toList();
         log.debug("Found {} {}s with {} = {} from local csv database.", res.size(),
           this.getClass().getSimpleName(), fieldName, value);
