@@ -37,4 +37,12 @@ class ImascordhubbackendApplicationTests {
       .andExpect(status().isOk())
       .andExpect(content().contentType("application/json"));
   }
+
+  @Test
+  void unknownServers(@Autowired MockMvc mvc) throws Exception {
+    mvc
+        .perform(MockMvcRequestBuilders.request(HttpMethod.GET,
+            "/servers/find/someunknownid"))
+        .andExpect(status().isNotFound());
+  }
 }

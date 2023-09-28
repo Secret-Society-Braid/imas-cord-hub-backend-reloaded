@@ -2,15 +2,9 @@ package org.braid.society.secret.imascordhubbackend.servers;
 
 import static com.google.common.truth.Truth.assertThat;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
-import java.util.Objects;
 import org.braid.society.secret.imascordhubbackend.api.IP;
-import org.braid.society.secret.imascordhubbackend.api.database.DatabaseOperation;
 import org.braid.society.secret.imascordhubbackend.api.entity.ServerEntity;
-import org.braid.society.secret.imascordhubbackend.internal.database.ServerDatabaseOperation;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,18 +13,11 @@ import org.mockito.junit.jupiter.MockitoExtension;
 @ExtendWith(MockitoExtension.class)
 class ServerRepositoryTest {
 
-  BufferedReader br;
-  DatabaseOperation<ServerEntity> op;
   ServerRepository r;
 
   @BeforeEach
   void setUp() {
-    br = new BufferedReader(
-      new InputStreamReader(
-        Objects.requireNonNull(getClass().getResourceAsStream("/server.model.csv")),
-        StandardCharsets.UTF_8));
-    op = new ServerDatabaseOperation(br);
-    r = new ServerRepository(op);
+    r = new ServerRepository("/server.model.test.csv");
   }
 
   @Test
@@ -84,7 +71,6 @@ class ServerRepositoryTest {
   @Test
   void moreRandomShouldReturnSpecifiedNumberOfEntity() {
     // setup
-    final ServerRepository r = new ServerRepository(op);
     final List<ServerEntity> lessList = r.getRandomServers(10);
 
     // assertion
