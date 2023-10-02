@@ -1,0 +1,28 @@
+name: "バグレポート (Bug Report) 🐛"
+description: "APIを使用しているうち、何かおかしい点を見つけた場合はこちらからご報告ください。"
+labels:
+  - "bug"
+assignees:
+  - "hizumiaoba"
+body:
+  - type: textarea
+    attributes:
+      label: "発生したバグの概要"
+      description: "発生したバグの詳細を記述してください。"
+      placeholder: "例: 登録されているはずのデータが出力されない"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "期待した挙動"
+      description: "APIの操作によって期待した挙動を記述してください。"
+      placeholder: "例: 登録されているデータが出力される"
+    validations:
+      required: true
+  - type: textarea
+    attributes:
+      label: "再現手順"
+      description: "バグを再現するための手順を記述してください。"
+      placeholder: "例: 1. APIを呼び出す 2. データが出力されない"
+    validations:
+      required: true
