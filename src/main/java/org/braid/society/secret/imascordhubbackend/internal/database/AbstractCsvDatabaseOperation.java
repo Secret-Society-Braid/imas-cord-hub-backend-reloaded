@@ -3,6 +3,7 @@ package org.braid.society.secret.imascordhubbackend.internal.database;
 import jakarta.annotation.Nonnull;
 import java.io.IOException;
 import java.io.Reader;
+import java.util.Collections;
 import java.util.List;
 import lombok.AccessLevel;
 import lombok.RequiredArgsConstructor;
@@ -12,6 +13,8 @@ import org.apache.commons.csv.CSVFormat;
 import org.apache.commons.csv.CSVParser;
 import org.apache.commons.csv.CSVRecord;
 import org.braid.society.secret.imascordhubbackend.api.database.DatabaseOperation;
+import org.springframework.http.HttpStatus;
+import org.springframework.web.server.ResponseStatusException;
 
 @Slf4j
 @RequiredArgsConstructor(access = AccessLevel.PROTECTED)
@@ -36,6 +39,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
       .setIgnoreEmptyLines(true)
       .setNullString("")
       .setQuote('\"')
+      .setRecordSeparator('\n')
       .build()
       .parse(this.reader);
   }
@@ -49,7 +53,11 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   public T get(String id) {
     try (CSVParser p = this.createParser()) {
       return p.stream().filter(r -> r.get("id").equals(id)).findFirst().map(this::parseRecord)
-        .orElseThrow();
+        .orElseThrow(() -> new ResponseStatusException(
+            HttpStatus.NOT_FOUND,
+            String.format("Cannot find %s with id %s from local csv database.",
+                this.getClass().getSimpleName(), id)
+        ));
     } catch (IOException e) {
       log.error("Failed to load {} with id {} from local csv database due to IO error.",
         this.getClass().getSimpleName(), id, e);
@@ -60,22 +68,48 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   @Override
   @Nonnull
   public <V> List<T> filter(@Nonnull String fieldName, @Nonnull V value) {
-    throw new UnsupportedOperationException("Not supported yet.");
+    if (value instanceof String term) {
+      try (CSVParser p = this.createParser()) {
+        List<T> res = p.stream().filter(r -> r.get(fieldName).contains(term)).map(this::parseRecord)
+          .toList();
+        log.debug("Found {} {}s with {} = {} from local csv database.", res.size(),
+          this.getClass().getSimpleName(), fieldName, value);
+        return res;
+      } catch (IOException e) {
+        log.error("Failed to filter {} with {} = {} from local csv database due to IO error.",
+          this.getClass().getSimpleName(), fieldName, value, e);
+        return Collections.emptyList();
+      }
+    }
+    throw new ResponseStatusException(
+        HttpStatus.NOT_ACCEPTABLE,
+        String.format("Filtering %s with %s = %s is not supported.",
+            this.getClass().getSimpleName(), fieldName, value)
+    );
   }
 
   @Override
   public void insert(T t) {
-    throw new UnsupportedOperationException("There is no plan to support this operation.");
+    throw new ResponseStatusException(
+        HttpStatus.NOT_IMPLEMENTED,
+        "Insert operation is not supported."
+    );
   }
 
   @Override
   public void update(T t) {
-    throw new UnsupportedOperationException("There is no plan to support this operation.");
+    throw new ResponseStatusException(
+        HttpStatus.NOT_IMPLEMENTED,
+        "Update operation is not supported."
+    );
   }
 
   @Override
   public void delete(String id) {
-    throw new UnsupportedOperationException("There is no plan to support this operation.");
+    throw new ResponseStatusException(
+        HttpStatus.NOT_IMPLEMENTED,
+        "Delete operation is not supported."
+    );
   }
 
   protected abstract T parseRecord(@Nonnull CSVRecord record);
