@@ -23,7 +23,7 @@ class ServerEntityDatabaseTest {
   void getAllTest() {
     BufferedReader br = new BufferedReader(
       new InputStreamReader(
-        Objects.requireNonNull(getClass().getResourceAsStream("/server.model.csv")),
+        Objects.requireNonNull(getClass().getResourceAsStream("/server.model.test.csv")),
         StandardCharsets.UTF_8));
     DatabaseOperation<ServerEntity> op = new ServerDatabaseOperation(br);
     List<ServerEntity> l = op.getAll();
