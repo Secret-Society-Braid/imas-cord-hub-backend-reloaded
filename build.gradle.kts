@@ -29,10 +29,10 @@ dependencies {
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("org.apache.commons:commons-csv:1.10.0")
 
-    compileOnly("org.projectlombok:lombok:1.18.26")
+    compileOnly("org.projectlombok:lombok:1.18.30")
 
     annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.0.4")
-    annotationProcessor("org.projectlombok:lombok:1.18.26")
+    annotationProcessor("org.projectlombok:lombok:1.18.30")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
     testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.4")
