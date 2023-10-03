@@ -45,4 +45,29 @@ class ImascordhubbackendApplicationTests {
             "/servers/find/someunknownid"))
         .andExpect(status().isNotFound());
   }
+
+  @Test
+  void testGetAllFansites(@Autowired MockMvc mvc) throws Exception {
+    mvc
+      .perform(MockMvcRequestBuilders.request(HttpMethod.GET, "/fansites"))
+      .andExpect(status().isOk())
+      .andExpect(content().contentType("application/json"));
+  }
+
+  @Test
+  void testFindFansites(@Autowired MockMvc mvc) throws Exception {
+    mvc
+      .perform(MockMvcRequestBuilders.request(HttpMethod.GET,
+        "/fansites/find/10422c16-d21c-444f-9897-11e2f2546357"))
+      .andExpect(status().isOk())
+      .andExpect(content().contentType("application/json"));
+  }
+
+  @Test
+  void unknownFansites(@Autowired MockMvc mvc) throws Exception {
+    mvc
+      .perform(MockMvcRequestBuilders.request(HttpMethod.GET,
+        "/fansites/find/someunknownid"))
+      .andExpect(status().isNotFound());
+  }
 }
