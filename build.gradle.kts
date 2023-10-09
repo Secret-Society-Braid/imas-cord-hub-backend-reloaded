@@ -25,7 +25,7 @@ dependencies {
 
     implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
     implementation("ch.qos.logback:logback-classic:1.4.11")
-    implementation("com.google.guava:guava:32.0.1-jre")
+    implementation("com.google.guava:guava:32.1.2-jre")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("org.apache.commons:commons-csv:1.10.0")
 
