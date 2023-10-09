@@ -82,7 +82,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
       }
     }
     throw new ResponseStatusException(
-        HttpStatus.NOT_ACCEPTABLE,
+        HttpStatus.BAD_REQUEST,
         String.format("Filtering %s with %s = %s is not supported.",
             this.getClass().getSimpleName(), fieldName, value)
     );
@@ -91,7 +91,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   @Override
   public void insert(T t) {
     throw new ResponseStatusException(
-        HttpStatus.NOT_IMPLEMENTED,
+        HttpStatus.METHOD_NOT_ALLOWED,
         "Insert operation is not supported."
     );
   }
@@ -99,7 +99,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   @Override
   public void update(T t) {
     throw new ResponseStatusException(
-        HttpStatus.NOT_IMPLEMENTED,
+        HttpStatus.METHOD_NOT_ALLOWED,
         "Update operation is not supported."
     );
   }
@@ -107,7 +107,7 @@ public abstract class AbstractCsvDatabaseOperation<T> implements DatabaseOperati
   @Override
   public void delete(String id) {
     throw new ResponseStatusException(
-        HttpStatus.NOT_IMPLEMENTED,
+        HttpStatus.METHOD_NOT_ALLOWED,
         "Delete operation is not supported."
     );
   }
