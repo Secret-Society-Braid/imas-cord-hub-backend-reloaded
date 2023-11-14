@@ -1,5 +1,8 @@
 name: Mergability check for Pull Request
 on:
+  merge_group:
+    branches:
+      - main
   pull_request:
     branches:
       - main
