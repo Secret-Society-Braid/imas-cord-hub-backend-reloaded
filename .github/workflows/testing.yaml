@@ -1,6 +1,6 @@
 name: "Continuous Testing with Gradle CI"
 on:
-  pull_request:
+  merge_queue:
     branches:
       - main
 

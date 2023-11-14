@@ -1,0 +1,30 @@
+name: Mergability check for Pull Request
+on:
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  check:
+    name: Tests with Gradle
+    runs-on: "ubuntu-latest"
+    steps:
+      - name: "Checkout the repo"
+        uses: "actions/checkout@v4"
+      - name: "Set up JDK 17"
+        uses: "actions/setup-java@v3"
+        with:
+          distribution: "temurin"
+          java-version: "17"
+      - name: Grant execution permission to Gradle
+        run: "chmod +x gradlew"
+      - name: Run Tests with Gradle
+        uses: "gradle/gradle-build-action@v2"
+        with:
+          arguments: |
+            test
+            -i
+            --scan
+            --stacktrace
+            --build-cache
+
