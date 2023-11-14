@@ -1,6 +1,6 @@
 name: "Continuous Testing with Gradle CI"
 on:
-  merge_qroup:
+  merge_group:
     branches:
       - main
 
