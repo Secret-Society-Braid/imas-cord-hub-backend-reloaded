@@ -1,6 +1,6 @@
 plugins {
     java
-    id("org.springframework.boot") version "3.1.4"
+    id("org.springframework.boot") version "3.1.5"
     id("io.spring.dependency-management") version "1.1.3"
 }
 
@@ -23,19 +23,19 @@ repositories {
 
 dependencies {
 
-    implementation("org.springframework.boot:spring-boot-starter-web:3.1.0")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.1.5")
     implementation("ch.qos.logback:logback-classic:1.4.11")
-    implementation("com.google.guava:guava:32.1.2-jre")
+    implementation("com.google.guava:guava:32.1.3-jre")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
     implementation("org.apache.commons:commons-csv:1.10.0")
 
     compileOnly("org.projectlombok:lombok:1.18.30")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.0.4")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.1.5")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.4")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.5")
     testImplementation("com.google.truth:truth:1.1.5") {
         isTransitive = false
     }
@@ -43,7 +43,7 @@ dependencies {
 
 dependencyManagement {
     imports {
-        mavenBom("org.springframework.modulith:spring-modulith-bom:1.0.0")
+        mavenBom("org.springframework.modulith:spring-modulith-bom:1.0.2")
     }
 }
 
