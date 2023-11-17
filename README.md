@@ -17,7 +17,12 @@ APIの利活用に関するドキュメントは [こちら](https://Secret-Soci
 $ docker build -t imas-cord-hub-backend-reloaded:latest .
 ```
 
-ビルドが完了し次第、Docker CLIや Docker Desktopなりでイメージを起動してください。ローカルサーバーのアドレスはデフォルトと変わらず `http://localhost:8080` です。
+ビルドが完了し次第、Docker CLIや Docker Desktopなりでイメージを起動してください。`Dockerfile`
+より`8080`番ポートを公開するよう設定していますので、お好きなポートへフォワードしてください。
+
+```bash
+$ docker run -d -p 8080:8080 imas-cord-hub-backend-reloaded:latest
+```
 
 ## 機能のコントリビューション
 
