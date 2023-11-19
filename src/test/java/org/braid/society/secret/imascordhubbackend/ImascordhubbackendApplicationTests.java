@@ -4,6 +4,7 @@ import static com.google.common.truth.Truth.assertThat;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
+import java.util.Objects;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -69,5 +70,16 @@ class ImascordhubbackendApplicationTests {
       .perform(MockMvcRequestBuilders.request(HttpMethod.GET,
         "/fansites/find/someunknownid"))
       .andExpect(status().isNotFound());
+  }
+
+  @Test
+  void testHealthEndpoint(@Autowired MockMvc mvc) throws Exception {
+    if (!Objects.equals(System.getenv("RUNENV"), "local")) {
+      return;
+    }
+    mvc
+      .perform(MockMvcRequestBuilders.request(HttpMethod.GET, "/health"))
+      .andExpect(status().isOk())
+      .andExpect(content().contentType("application/json"));
   }
 }
