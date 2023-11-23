@@ -31,7 +31,7 @@ dependencies {
 
     compileOnly("org.projectlombok:lombok:1.18.30")
 
-    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.1.5")
+    annotationProcessor("org.springframework.boot:spring-boot-configuration-processor:3.2.0")
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
