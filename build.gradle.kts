@@ -35,7 +35,7 @@ dependencies {
     annotationProcessor("org.projectlombok:lombok:1.18.30")
     annotationProcessor("jakarta.annotation:jakarta.annotation-api:2.1.1")
 
-    testImplementation("org.springframework.boot:spring-boot-starter-test:3.1.5")
+    testImplementation("org.springframework.boot:spring-boot-starter-test:3.2.0")
     testImplementation("com.google.truth:truth:1.1.5") {
         isTransitive = false
     }
