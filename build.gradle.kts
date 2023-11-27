@@ -23,7 +23,7 @@ repositories {
 
 dependencies {
 
-    implementation("org.springframework.boot:spring-boot-starter-web:3.1.5")
+    implementation("org.springframework.boot:spring-boot-starter-web:3.2.0")
     implementation("ch.qos.logback:logback-classic:1.4.11")
     implementation("com.google.guava:guava:32.1.3-jre")
     implementation("jakarta.annotation:jakarta.annotation-api:2.1.1")
